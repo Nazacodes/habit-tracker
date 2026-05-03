@@ -20,3 +20,7 @@ Thumbs.db
 # Word build fallbacks when the main file is locked in Word (regenerate with scripts/build_final_submission_docx.py)
 docs/docx/*-build-*.docx
 docs/docx/*-generated.docx
+
+# One-off git helper logs (local only)
+git_setup_result.txt
+git-init-log.txt

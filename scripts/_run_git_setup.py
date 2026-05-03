@@ -29,7 +29,7 @@ def main() -> int:
         ["git", "--version"],
         ["git", "init"],
         ["git", "config", "user.name", "Chinaza Ogwudiegwu"],
-        ["git", "config", "user.email", "r002316262@users.noreply.github.com"],
+        ["git", "config", "user.email", "ogwudiegwuc@gmail.com"],
         ["git", "add", "-A"],
         ["git", "status", "-sb"],
         [

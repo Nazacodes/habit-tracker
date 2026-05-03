@@ -6,7 +6,7 @@ Applicant: Chinaza Ogwudiegwu
 
 Student ID: r002316262
 
-Repository: add public GitHub URL when the repo is published
+Repository: https://github.com/Nazacodes/habit-tracker
 
 Product name in the UI: Habit Studio
 
@@ -191,7 +191,7 @@ Rather than mocking CSRF in tests, scrape hidden fields like a browser helper wo
 ### 6.1 Local Run
 
 ```text
-git clone https://github.com/<your-org-or-username>/aisdlc.git   # substitute when published
+git clone https://github.com/Nazacodes/habit-tracker.git
 cd aisdlc
 python -m venv .venv
 .\.venv\Scripts\activate

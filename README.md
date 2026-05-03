@@ -95,19 +95,23 @@ The **streak engine** (`habit_tracker/streak.py`) defines how *current streak* i
 Keep the repo **source-first**: Markdown docs, `habit_tracker/`, `tests/`, `templates/`, `static/`, `scripts/`, `data/seed_demo.json`, CI workflow. Your `.gitignore` already drops **`.venv/`**, **local `data/store.json`**, pytest caches, and **timestamped Word fallbacks** under `docs/docx/`.
 
 1. Install [Git for Windows](https://git-scm.com/download/win) or use **GitHub Desktop**.
-2. On GitHub: **New repository** → name it (e.g. `habit-studio`) → **Public** → create **without** adding a README (avoids merge friction), or add README and use pull/rebase on first push.
-3. In the project folder (with Git in `PATH`):
+2. On GitHub: **New repository** → choose a name (e.g. `habit-studio`) → **Public** → create **without** README / .gitignore (empty repo avoids merge friction).
+3. Wire `origin` and push (replace `YOUR_USER` and `YOUR_REPO`):
 
 ```powershell
 cd c:\Users\rituh\Desktop\aisdlc
-git init
-git add .
-git status   # confirm no .venv, no store.json, no .env
-git commit -m "Initial public import: Habit Studio coursework"
+powershell -ExecutionPolicy Bypass -File .\scripts\connect_github_remote.ps1 -GitHubUser YOUR_USER -RepoName YOUR_REPO
+git push -u origin master
+```
+
+If you prefer GitHub’s default branch name `main` instead of `master`:
+
+```powershell
 git branch -M main
-git remote add origin https://github.com/<your-username>/<repo>.git
 git push -u origin main
 ```
+
+If this folder was not a git repo yet: `git init`, then `git add .`, `git commit -m "..."`, then run the `connect_github_remote.ps1` line above.
 
 Do **not** commit Moodle **PDF**, personal **video**, or **graded zip** unless you intend to; markers care about your submission copy, not the public repo. After the repo exists, set the real URL in `docs/Mini_SDLC_Report.md` (repository line) and rebuild the Word/PDF if needed.
 
