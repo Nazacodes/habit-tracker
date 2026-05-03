@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% block title %}Dashboard · Habit Studio{% endblock %}
+{% block content %}
+
+<section class="hero-grid">
+  <article class="panel hero-main">
+    <p class="eyebrow">Reference day</p>
+    <p class="display-date">{{ today.strftime("%a %d %b %Y") }}</p>
+    <p class="lede muted">
+      Today’s orbit: mark habits fast from the Focus rail, drill into streak logic + heatmaps via each row.
+      Sorting persists in the URL for reproducible demos.
+    </p>
+    <div class="hero-actions">
+      <a class="btn primary glow" href="{{ url_for('habit_new') }}">Create habit</a>
+      <a class="btn ghost" href="{{ url_for('backup_page') }}">Backup / restore</a>
+    </div>
+  </article>
+  <div class="kpi-column">
+    <article class="kpi-card accent">
+      <p class="kpi-label">Today done</p>
+      <p class="kpi-value">{{ today_done_ct }}<span class="kpi-suffix">/{{ habits_total }}</span></p>
+      {% if completion_rate is not none %}
+      <div class="kpi-meter" aria-hidden="true"><span style="width: {{ completion_rate }}%"></span></div>
+      <p class="kpi-hint muted small">{{ completion_rate }}% lock‑in vs total habits</p>
+      {% else %}
+      <p class="kpi-hint muted small">Add habits to measure daily completion coverage.</p>
+      {% endif %}
+    </article>
+    <article class="kpi-card">
+      <p class="kpi-label">Bench best streak</p>
+      <p class="kpi-value">{{ aggregate_best }}</p>
+      <p class="kpi-hint muted small">Highest best‑ever streak across roster</p>
+    </article>
+  </div>
+</section>
+
+{% if habits_total > 0 %}
+<section class="panel focus-rail card-elev">
+  <header class="section-head">
+    <div>
+      <h2 id="today-focus-heading">Today’s focus</h2>
+      <p class="muted small">Outstanding habits · one tap “Done” with CSRF‑bound POST.</p>
+    </div>
+  </header>
+  {% if not pending_focus %}
+  <div class="empty-focus">
+    <div class="empty-icon">✓</div>
+    <p><strong>All habits logged for {{ today.isoformat() }}.</strong> Come back tomorrow or add more stretch goals.</p>
+  </div>
+  {% else %}
+  <ul class="focus-list" aria-labelledby="today-focus-heading">
+    {% for row in pending_focus %}
+    <li class="focus-card">
+      <div class="focus-meta">
+        <a class="focus-title" href="{{ url_for('habit_detail', habit_id=row.habit.id) }}">{{ row.habit.name }}</a>
+        <p class="muted small focus-sub">Cur {{ row.current }} · Best {{ row.best }}</p>
+      </div>
+      <form method="post" action="{{ url_for('habit_mark_today_quick', habit_id=row.habit.id) }}" class="inline-stack">
+        {% include "_csrf_field.html" %}
+        <input type="hidden" name="sort" value="{{ sort_mode }}" />
+        <button class="btn primary compact" type="submit">Done today</button>
+      </form>
+    </li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+</section>
+{% endif %}
+
+<section class="panel card-elev wide-table">
+  <header class="section-head split">
+    <div>
+      <h2>Roster overview</h2>
+      <p class="muted small">Stable sort modes for demo narrative + analytics comparisons.</p>
+    </div>
+    <nav class="sort-pills" aria-label="Sort habits">
+      <a class="pill {{ 'is-active' if sort_mode=='name' else '' }}" href="{{ url_for('index', sort='name') }}">Name</a>
+      <a class="pill {{ 'is-active' if sort_mode=='streak' else '' }}" href="{{ url_for('index', sort='streak') }}">Current streak</a>
+      <a class="pill {{ 'is-active' if sort_mode=='best' else '' }}" href="{{ url_for('index', sort='best') }}">Best streak</a>
+      <a class="pill {{ 'is-active' if sort_mode=='recent' else '' }}" href="{{ url_for('index', sort='recent') }}">Recently active</a>
+    </nav>
+  </header>
+
+  {% if not rows %}
+  <div class="empty-roster">
+    <p><strong>This canvas is pristine.</strong> Spin up your flagship habit pair (sleep + hydration, study block, mobility…)</p>
+    <a class="btn primary" href="{{ url_for('habit_new') }}">Start first habit</a>
+  </div>
+  {% else %}
+  <div class="table-wrap">
+    <table class="modern-table">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Current</th>
+          <th scope="col">Best</th>
+          <th scope="col"><span class="sr-only">Actions</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in rows %}
+        <tr>
+          <td>
+            <a class="habit-anchor" href="{{ url_for('habit_detail', habit_id=row.habit.id) }}">{{ row.habit.name }}</a>
+          </td>
+          <td>
+            <span class="pill-stat">{{ row.current }}</span>
+          </td>
+          <td>
+            <span class="pill-soft">{{ row.best }}</span>
+          </td>
+          <td class="table-actions">
+            <a class="btn ghost xs" href="{{ url_for('habit_edit', habit_id=row.habit.id) }}">Edit</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% endif %}
+</section>
+{% endblock %}

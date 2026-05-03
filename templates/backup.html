@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Backup & restore{% endblock %}
+{% block content %}
+<section class="panel hero-card">
+  <h2>Backup & restore</h2>
+  <p class="lede muted">
+    Entire persistence is under <strong>your control</strong> — download an atomic JSON snapshot, or restore one you trust.
+    Replacing files is safer on a duplicated machine; this UX makes the flow obvious for your report/demo.
+  </p>
+</section>
+
+<section class="two-col">
+  <article class="panel card-elev">
+    <h3>Export</h3>
+    <p class="muted small">
+      Saves the same structure the app reads: <code>{"habits": [...]}</code> with UUID ids and ISO dates.
+    </p>
+    <a class="btn primary" href="{{ url_for('backup_export') }}" download>Habit‑tracker‑backup.json</a>
+    <p class="muted small">{{ "Store exists on disk." if store_exists else "No save file yet — export yields an empty template." }}</p>
+  </article>
+
+  <article class="panel card-elev">
+    <h3>Restore</h3>
+    <p class="muted small caution">
+      This <strong>replaces current data</strong> after validating JSON. Prefer exporting first!
+    </p>
+    <form method="post" action="{{ url_for('backup_restore') }}" enctype="multipart/form-data" class="stack">
+      {% include "_csrf_field.html" %}
+      <label class="file-label">
+        <span>Backup file</span>
+        <input type="file" name="backup_file" accept="application/json,.json" required />
+      </label>
+      <label class="check">
+        <input type="checkbox" name="confirm_restore" value="yes" required />
+        I confirm this will overwrite habits on disk (max 512&nbsp;KB upload).
+      </label>
+      <button class="btn danger" type="submit">Restore from JSON</button>
+    </form>
+  </article>
+</section>
+
+<section class="panel narrow">
+  <p class="muted small">
+    <strong>Operational note:</strong> validation mirrors <code>Habit.from_dict</code>; stray fields are ignored —
+    malformed habit objects are rejected wholesale for safety.
+  </p>
+</section>
+{% endblock %}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Copilot — inline suggestion</title>
+    <link rel="stylesheet" href="chat-skins.css" />
+  </head>
+  <body class="skin-copilot">
+    <div class="copilot-shell">
+      <div class="copilot-header">
+        <div class="copilot-brand">
+          GITHUB COPILOT <span class="hub">›</span> Chat
+        </div>
+        <div style="color: #858585">habit_tracker/app.py</div>
+      </div>
+      <div class="copilot-chat">
+        <div class="cp-msg cp-user">
+          @workspace Explain why Flask test client retains cookies across sequential requests inside <code>with app.test_client() as client</code> context — one paragraph.
+        </div>
+        <div class="cp-msg cp-ai">
+          Werkzeug’s Client maintains a CookieJar analogue per instance; sequential calls reuse Set-Cookie headers so CSRF session + synchroniser survives GET form → POST mutate flow mimicking browsers when tests scrape hidden token fields.
+          <div class="cp-ref">References: werkzeug.Client #CookieStorage</div>
+<pre># optional smoke
+with app.test_client() as c:
+    c.get('/habits/new')
+    assert c.post('/habits', data={...}).status_code != 403</pre>
+        </div>
+      </div>
+      <div class="copilot-composer-placeholder">
+        ⌘ + I Ask Copilot • workspace aware
+      </div>
+    </div>
+  </body>
+</html>

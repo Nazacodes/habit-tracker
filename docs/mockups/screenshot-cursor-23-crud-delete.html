@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cursor — delete confirm</title>
+    <link rel="stylesheet" href="chat-skins.css" />
+  </head>
+  <body class="skin-cursor">
+    <div class="window-chrome">
+      <div class="titlebar">
+        <div class="titlebar-brand"><span class="logo-dot"></span> Cursor · habit delete</div>
+        <div class="titlebar-meta">POST confirm</div>
+      </div>
+      <div class="chat-body">
+        <div class="msg msg-user">
+          <div class="msg-label">You</div>
+          Delete must be POST with CSRF—not GET. Detail page shows destructive form + second “type name to confirm” optional? Timebox: simple confirm modal copy only.
+        </div>
+        <div class="msg msg-ai">
+          <div class="msg-label">Agent</div>
+<pre>&lt;form method="post" action="{{ url_for('delete_habit', habit_id=habit.id) }}"&gt;
+  … token …
+  &lt;button class="danger" type="submit"&gt;Delete habit&lt;/button&gt;
+&lt;/form&gt;</pre>
+        </div>
+        <div class="msg msg-ai">
+          <div class="msg-label">Agent</div>
+          <p>After delete redirect index with flash removed; ids never recycled in file (append-only monotonic ok).</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

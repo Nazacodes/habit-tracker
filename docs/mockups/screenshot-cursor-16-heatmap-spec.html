@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cursor — 14-week grid</title>
+    <link rel="stylesheet" href="chat-skins.css" />
+  </head>
+  <body class="skin-cursor">
+    <div class="window-chrome">
+      <div class="titlebar">
+        <div class="titlebar-brand"><span class="logo-dot"></span> Cursor · heatmap.py</div>
+        <div class="titlebar-meta">columns = 14</div>
+      </div>
+      <div class="chat-body">
+        <div class="msg msg-user">
+          <div class="msg-label">You</div>
+          Heatmap: exactly 14 week columns counting back from anchor week (Sun–Sat bucket). Missing days neutral pattern class, completion uses token green + aria-label yyyy-mm-dd. No external chart lib.
+        </div>
+        <div class="msg msg-ai">
+          <div class="msg-label">Agent</div>
+          <p>Build list of ISO week tuples (year, week) for trailing 14 anchored to <code>refMonday</code> math; map completions into cell matrix; SVG not required — CSS grid suffices.</p>
+        </div>
+        <div class="msg msg-user">
+          <div class="msg-label">You</div>
+          Add unit test: empty completions → grid all empty, invariant cell count.
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark light" />
+    <title>{% block title %}Habit Tracker Pro{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+    <script defer src="{{ url_for('static', filename='theme.js') }}"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#content">Skip to content</a>
+
+    <header class="site-header sticky">
+      <div class="wrap header-inner">
+        <div class="brand-cluster">
+          <h1><a href="{{ url_for('index') }}">Habit&nbsp;Studio</a></h1>
+          <p class="tagline">Momentum you can audit · COMP8066 Option&nbsp;A MVP</p>
+        </div>
+        <nav class="top-actions" aria-label="Primary navigation">
+          <a class="nav-link" href="{{ url_for('index') }}">Dashboard</a>
+          <a class="nav-link" href="{{ url_for('habit_new') }}">New habit</a>
+          <a class="nav-link" href="{{ url_for('backup_page') }}">Backup</a>
+          <button
+            id="theme-toggle"
+            type="button"
+            class="btn ghost nav-btn"
+            data-theme-active="light"
+          >
+            Theme
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <main id="content" class="wrap page-main" tabindex="-1">
+      <div class="flashes-host" role="status" aria-live="polite" aria-relevant="additions text">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <ul class="flashes">
+          {% for category, message in messages %}
+          <li class="flash flash-{{ category }}">{{ message }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+      </div>
+      {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap footer-inner">
+        <small>JSON storage · CSRF‑protected mutations · WCAG‑aligned palette guidance in docs</small>
+      </div>
+    </footer>
+  </body>
+</html>

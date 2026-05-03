@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<!-- SYNTHETIC static figure: open in browser → print / PDF / screenshot. Not live app data. -->
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <title>Synthetic dashboard figure (Habit Studio)</title>
+    <link rel="stylesheet" href="../../static/style.css" />
+    <style>
+      body {
+        padding: 1.5rem 0 3rem;
+      }
+      .banner {
+        max-width: 1040px;
+        margin: 0 auto 1rem;
+        padding: 0.5rem 1rem;
+        border-radius: 10px;
+        border: 1px dashed var(--border);
+        color: var(--text-muted);
+        font-size: 0.85rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="banner">
+      <strong>Figure — synthetic mock.</strong> For documentation layout only. Prefer real screenshots from
+      <code>http://127.0.0.1:5000</code> for authenticity.
+    </div>
+    <div class="wrap">
+      <section class="hero-grid">
+        <article class="panel hero-main">
+          <p class="eyebrow">Reference day</p>
+          <p class="display-date">Sat 02 May 2026</p>
+          <p class="lede muted">
+            Illustrative copy for your report: momentum rail + KPI cards + sortable roster (see live app).
+          </p>
+          <div class="hero-actions">
+            <span class="btn primary glow">Create habit</span>
+            <span class="btn ghost">Backup / restore</span>
+          </div>
+        </article>
+        <div class="kpi-column">
+          <article class="kpi-card accent">
+            <p class="kpi-label">Today done</p>
+            <p class="kpi-value">2<span class="kpi-suffix">/4</span></p>
+            <div class="kpi-meter" aria-hidden="true"><span style="width: 50%"></span></div>
+            <p class="kpi-hint muted small">50% lock-in vs total habits</p>
+          </article>
+          <article class="kpi-card">
+            <p class="kpi-label">Bench best streak</p>
+            <p class="kpi-value">14</p>
+            <p class="kpi-hint muted small">Highest best-ever streak across roster</p>
+          </article>
+        </div>
+      </section>
+      <section class="panel focus-rail card-elev">
+        <header class="section-head">
+          <div>
+            <h2 id="fig-focus">Today’s focus (mock)</h2>
+            <p class="muted small">Shows remaining habits needing a log for reference day.</p>
+          </div>
+        </header>
+        <ul class="focus-list" aria-labelledby="fig-focus">
+          <li class="focus-card">
+            <div class="focus-meta">
+              <span class="focus-title">Deep work block</span>
+              <p class="muted small focus-sub">Cur 4 · Best 11</p>
+            </div>
+            <span class="btn primary compact">Done today</span>
+          </li>
+          <li class="focus-card">
+            <div class="focus-meta">
+              <span class="focus-title">Hydration</span>
+              <p class="muted small focus-sub">Cur 0 · Best 6</p>
+            </div>
+            <span class="btn primary compact">Done today</span>
+          </li>
+        </ul>
+      </section>
+    </div>
+  </body>
+</html>

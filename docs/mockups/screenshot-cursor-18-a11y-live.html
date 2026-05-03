@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cursor — flash + skip link</title>
+    <link rel="stylesheet" href="chat-skins.css" />
+  </head>
+  <body class="skin-cursor">
+    <div class="window-chrome">
+      <div class="titlebar">
+        <div class="titlebar-brand"><span class="logo-dot"></span> Cursor · base.html</div>
+        <div class="titlebar-meta">WCAG rationale</div>
+      </div>
+      <div class="chat-body">
+        <div class="msg msg-user">
+          <div class="msg-label">You</div>
+          Skip-link as first focusable; flashes in div role="status" aria-live="polite" so SR catches success without moving focus away from Done button rail.
+        </div>
+        <div class="msg msg-ai">
+          <div class="msg-label">Agent</div>
+<pre>&lt;a class="skip-link" href="#main"&gt;Skip to content&lt;/a&gt;
+&lt;main id="main" tabindex="-1"&gt;
+{% if flashes %}
+&lt;div class="live-region" role="status" aria-live="polite"&gt;</pre>
+          <p>Keyboard: focus-visible outlines on rails & ≥2px.</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

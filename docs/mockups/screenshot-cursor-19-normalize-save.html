@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cursor — normalize on save</title>
+    <link rel="stylesheet" href="chat-skins.css" />
+  </head>
+  <body class="skin-cursor">
+    <div class="window-chrome">
+      <div class="titlebar">
+        <div class="titlebar-brand"><span class="logo-dot"></span> Cursor · storage.py</div>
+        <div class="titlebar-meta">dedupe ISO dates</div>
+      </div>
+      <div class="chat-body">
+        <div class="msg msg-user">
+          <div class="msg-label">You</div>
+          On every save coerce completion strings to canonical YYYY-MM-DD, drop invalid, sort uniq per habit — even if malformed crept via manual JSON edit—prevents flaky streak tests from duplicate entries.
+        </div>
+        <div class="msg msg-ai">
+          <div class="msg-label">Agent</div>
+<pre>def normalize_for_save(data: StoreData) -> StoreData:
+    for h in data.habits:
+        iso = sorted({d for d in (parse_iso(x) for x in h.completions) if d})
+        …</pre>
+          <div class="hint">Call right before atomic write_tmp → replace.</div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

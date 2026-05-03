@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% block title %}{{ habit.name }} · Habit Studio{% endblock %}
+{% block content %}
+{% set wd = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'] %}
+{% set ncol = heat_ticks | length %}
+
+<section class="panel detail-hero card-elev">
+  <div class="toolbar">
+    <div>
+      <p class="eyebrow">Habit detail</p>
+      <h2>{{ habit.name }}</h2>
+    </div>
+    <div class="toolbar-actions">
+      <a class="btn ghost" href="{{ url_for('habit_edit', habit_id=habit.id) }}">Edit</a>
+      <form class="inline" method="post" action="{{ url_for('habit_delete', habit_id=habit.id) }}" onsubmit="return confirm('Delete this habit?');">
+        {% include "_csrf_field.html" %}
+        <button class="btn danger" type="submit">Delete</button>
+      </form>
+    </div>
+  </div>
+  {% if habit.description %}
+  <p class="desc">{{ habit.description }}</p>
+  {% endif %}
+  <div class="stat-grid">
+    <div class="stat-chip">
+      <span class="stat-label">Current streak</span>
+      <span class="stat-num">{{ current }}</span>
+    </div>
+    <div class="stat-chip">
+      <span class="stat-label">Best streak</span>
+      <span class="stat-num">{{ best }}</span>
+    </div>
+    <div class="stat-chip">
+      <span class="stat-label">This ISO week</span>
+      <span class="stat-num">{{ week_total }}</span>
+      <span class="stat-note">days</span>
+    </div>
+  </div>
+  <p class="muted small">Calendar window: <strong>{{ week_heading }}</strong></p>
+</section>
+
+<section class="panel stack-md">
+  <h3>Mark completion</h3>
+  <form class="row-form" method="post" action="{{ url_for('habit_complete', habit_id=habit.id) }}">
+    {% include "_csrf_field.html" %}
+    <label>
+      Date
+      <input type="date" name="completion_date" value="{{ today.isoformat() }}" />
+    </label>
+    <button class="btn primary" type="submit">Mark done</button>
+  </form>
+  <form class="row-form secondary" method="post" action="{{ url_for('habit_uncomplete', habit_id=habit.id) }}">
+    {% include "_csrf_field.html" %}
+    <label>
+      Date
+      <input type="date" name="completion_date" value="{{ today.isoformat() }}" />
+    </label>
+    <button class="btn ghost" type="submit">Clear date</button>
+  </form>
+  <p class="muted small">
+    Streak rule: streak <em>counts</em> only if today or yesterday is logged, then walks consecutive days backward (see tests in <code>test_streak.py</code>).
+  </p>
+</section>
+
+<section class="panel card-elev">
+  <h3 id="weekly-heading">Weekly analytics (this ISO week)</h3>
+  <figure class="chart-figure">
+    <figcaption class="sr-only">
+      {{ week_heading }} · completion counts Monday through Sunday.
+    </figcaption>
+    <div class="chart" role="img" aria-labelledby="weekly-heading">
+      {% for label, count in chart %}
+      <div class="bar-wrap">
+        <div class="bar" style="height: {{ (count / chart_max * 100) | round(2) }}%"></div>
+        <span class="bar-count">{{ count }}</span>
+        <span class="bar-label">{{ label }}</span>
+      </div>
+      {% endfor %}
+    </div>
+  </figure>
+</section>
+
+<section class="panel heat-panel card-elev" aria-labelledby="heatmap-title">
+  <header class="section-head">
+    <div>
+      <h3 id="heatmap-title">Consistency map</h3>
+      <p class="muted small">GitHub-style grid for the last {{ ncol }} ISO weeks (Mon→Sun rows). Colours + patterns avoid sole reliance on hue.</p>
+    </div>
+  </header>
+  <div class="heat-root" style="--heat-cols: {{ ncol }};">
+    <div class="heat-row heat-row-head">
+      <span class="heat-corner" aria-hidden="true"></span>
+      {% for lbl in heat_ticks %}
+      <span class="heat-cap">{{ lbl }}</span>
+      {% endfor %}
+    </div>
+    {% for r in range(7) %}
+    <div class="heat-row">
+      <span class="heat-y-label">{{ wd[r] }}</span>
+      {% for c in range(ncol) %}
+      <span class="heat-cell heat-{{ heatmap_grid[r][c] }}" title="{{ wd[r] }} · week column {{ c + 1 }}"></span>
+      {% endfor %}
+    </div>
+    {% endfor %}
+  </div>
+  <ul class="heat-legend">
+    <li><span class="heat-cell heat-done mini" aria-hidden="true"></span> Completed</li>
+    <li><span class="heat-cell heat-empty mini" aria-hidden="true"></span> No log</li>
+    <li><span class="heat-cell heat-future mini" aria-hidden="true"></span> Future</li>
+  </ul>
+</section>
+
+<section class="panel">
+  <h3>Completion history</h3>
+  {% if habit.completions %}
+  <ul class="pills">
+    {% for d in habit.completions | sort(reverse=true) %}
+    <li>{{ d.isoformat() }}</li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p>No completions logged yet.</p>
+  {% endif %}
+</section>
+{% endblock %}

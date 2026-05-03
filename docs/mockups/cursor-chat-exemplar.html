@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Prompt transcript · IDE-style layout</title>
+    <style>
+      :root {
+        --bg: #1e1e1e;
+        --panel: #252526;
+        --user: #2d2d30;
+        --assistant: #1a3a2f;
+        --text: #d4d4d4;
+        --accent: #4ec9b0;
+        --warn: #cca700;
+        font-family: "Segoe UI", system-ui, sans-serif;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.45;
+      }
+      .banner {
+        background: linear-gradient(90deg, #1e3a4f, #2f5570);
+        color: #f0f6fb;
+        padding: 0.5rem 1rem;
+        font-size: 0.82rem;
+        font-weight: 600;
+      }
+      .wrap {
+        max-width: 820px;
+        margin: 0 auto;
+        padding: 1rem 1rem 3rem;
+      }
+      h1 {
+        font-size: 1rem;
+        color: var(--accent);
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+      .msg {
+        border-radius: 10px;
+        padding: 0.85rem 1rem;
+        margin: 0.65rem 0;
+        border: 1px solid #333;
+      }
+      .user {
+        background: var(--user);
+      }
+      .assistant {
+        background: var(--assistant);
+      }
+      pre {
+        white-space: pre-wrap;
+        background: #111;
+        padding: 0.75rem;
+        border-radius: 8px;
+        border: 1px solid #333;
+        font-size: 0.82rem;
+      }
+      .meta {
+        font-size: 0.75rem;
+        color: #888;
+        margin-bottom: 0.35rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="banner">Companion layout · see Prompt_Chats_Appendix.md for full transcripts</div>
+    <div class="wrap">
+      <h1>Prompt engineering excerpt</h1>
+      <div class="msg user">
+        <div class="meta">You · Chain-of-thought + constraints</div>
+        <p>
+          Step 1: In bullet points, define <em>current streak</em> when “today” may be incomplete. Step 2: Only
+          after that, propose a Python function <code>current_streak(dates, today)</code> with type hints. Constraints:
+          stdlib only, no external APIs, must explain edge case “only yesterday completed”.
+        </p>
+      </div>
+      <div class="msg assistant">
+        <div class="meta">Assistant · draft (abbreviated)</div>
+        <pre>
+def current_streak(completion_dates, today):
+    # Anchor at today if completed else yesterday...
+    ...
+        </pre>
+        <p><span style="color: var(--warn)">⚠ Hallucination risk:</span> forgot to treat “only yesterday” as valid anchor.</p>
+      </div>
+      <div class="msg user">
+        <div class="meta">You · Verification prompt</div>
+        <p>
+          Write three pytest cases that <strong>must fail</strong> your previous answer: (1) completed only 3 days ago,
+          (2) completed yesterday not today, (3) duplicate completion same day. Then patch the function minimally.
+        </p>
+      </div>
+      <div class="msg assistant">
+        <div class="meta">Assistant · correction pass</div>
+        <pre>
+def test_current_streak_uses_yesterday_anchor_if_today_missing():
+    ...
+        </pre>
+      </div>
+      <p style="font-size: 0.8rem; color: #777">
+        Screenshot this page for a figure, or rebuild the conversation with your <em>real</em> wording in the official
+        PDF.
+      </p>
+    </div>
+  </body>
+</html>

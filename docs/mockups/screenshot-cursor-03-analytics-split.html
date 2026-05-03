@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cursor — analytics decomposition</title>
+    <link rel="stylesheet" href="chat-skins.css" />
+  </head>
+  <body class="skin-cursor">
+    <div class="window-chrome">
+      <div class="titlebar">
+        <div class="titlebar-brand"><span class="logo-dot"></span> Cursor · analytics vs templates</div>
+        <div class="titlebar-meta">prompt chaining</div>
+      </div>
+      <div class="chat-body">
+        <div class="msg msg-user">
+          <div class="msg-label">You</div>
+          Pass A ONLY: skeleton weekly_counts completions→list[(label,count)] Mon..Sun ISO week holding today — pure stdlib typing. Pass B ONLY: Flask route excerpt showing chart_max coercion before render_template — no Flask in Pass A response.
+        </div>
+        <div class="msg msg-ai">
+          <div class="msg-label">Agent</div>
+          <p><strong>Pass A:</strong></p>
+<pre>def weekly_counts(done: Iterable[date], today: date) -> list[tuple[str,int]]:
+    monday = today - timedelta(days=today.weekday())
+    ...</pre>
+          <p><strong>Pass B:</strong></p>
+<pre>chart_max = max((c for _, c in chart), default=1) or 1
+return render_template("habit_detail.html", chart=chart, chart_max=chart_max)</pre>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

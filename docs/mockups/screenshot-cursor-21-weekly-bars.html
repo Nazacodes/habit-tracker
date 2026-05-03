@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cursor — weekly counts</title>
+    <link rel="stylesheet" href="chat-skins.css" />
+  </head>
+  <body class="skin-cursor">
+    <div class="window-chrome">
+      <div class="titlebar">
+        <div class="titlebar-brand"><span class="logo-dot"></span> Cursor · analytics.py</div>
+        <div class="titlebar-meta">rolling window</div>
+      </div>
+      <div class="chat-body">
+        <div class="msg msg-user">
+          <div class="msg-label">You</div>
+          Analytics page: last 8 calendar weeks, label “W12” style, bar height = completion count / 7 (cap 1.0). Pass serializable list to Jinja—no JS chart.
+        </div>
+        <div class="msg msg-ai">
+          <div class="msg-label">Agent</div>
+          <p>Week bucket key (iso year, week); accumulate; zero-fill missing tail weeks so template always has 8 tuples.</p>
+        </div>
+        <div class="msg msg-ai">
+          <div class="msg-label">Agent</div>
+          <div class="hint">Template uses inline style width as % for simple bar—no canvas.</div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 340" role="img" aria-labelledby="title desc">
+  <title id="title">Habit Studio high-level architecture</title>
+  <desc id="desc">Browser connects to Flask routes via Jinja templates; routes use CSRF then domain helpers and atomic JSON persistence to data/store.json.</desc>
+  <defs>
+    <filter id="sh" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-opacity="0.12"/>
+    </filter>
+    <linearGradient id="g" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f7fafc"/>
+      <stop offset="100%" stop-color="#edf2f7"/>
+    </linearGradient>
+    <marker id="mh" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <polygon points="0 0, 8 4, 0 8" fill="#2f855a"/>
+    </marker>
+    <marker id="mh2" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <polygon points="0 0, 8 4, 0 8" fill="#4a5568"/>
+    </marker>
+  </defs>
+  <rect width="920" height="340" fill="#fafbfc"/>
+  <text x="460" y="36" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="700" fill="#1a202c">Figure A - Logical architecture (local Option A MVP)</text>
+  <rect x="32" y="64" width="240" height="220" rx="12" fill="url(#g)" stroke="#cbd5e0" filter="url(#sh)"/>
+  <text x="152" y="92" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="13" font-weight="700" fill="#2d3748">Presentation</text>
+  <rect x="56" y="108" width="192" height="44" rx="8" fill="#fff" stroke="#2f855a" stroke-width="1.5"/>
+  <text x="152" y="134" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="11" fill="#1a202c">Jinja2 templates</text>
+  <rect x="56" y="166" width="192" height="44" rx="8" fill="#fff" stroke="#718096"/>
+  <text x="152" y="191" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="11" fill="#1a202c">Static CSS / theme tokens</text>
+  <rect x="56" y="224" width="192" height="44" rx="8" fill="#fff" stroke="#718096"/>
+  <text x="152" y="249" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="11" fill="#1a202c">Browser (operator)</text>
+
+  <rect x="340" y="64" width="280" height="220" rx="12" fill="url(#g)" stroke="#cbd5e0" filter="url(#sh)"/>
+  <text x="480" y="92" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="13" font-weight="700" fill="#2d3748">Python service</text>
+  <rect x="364" y="108" width="232" height="36" rx="8" fill="#fff" stroke="#2f855a" stroke-width="1.5"/>
+  <text x="480" y="130" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="11" fill="#1a202c">Flask routes habit_tracker/app.py</text>
+  <rect x="364" y="154" width="232" height="36" rx="8" fill="#fff" stroke="#744210"/>
+  <text x="480" y="176" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="11" fill="#1a202c">CSRF synchroniser security.py</text>
+  <rect x="364" y="200" width="232" height="36" rx="8" fill="#fff" stroke="#2c5282"/>
+  <text x="480" y="222" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="11" fill="#1a202c">Domain - streak analytics heatmap</text>
+  <rect x="364" y="246" width="232" height="30" rx="8" fill="#fff" stroke="#2c5282"/>
+  <text x="480" y="265" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="11" fill="#1a202c">JSON I/O storage.py</text>
+
+  <rect x="668" y="120" width="220" height="120" rx="12" fill="#1a202c" stroke="#4a5568" filter="url(#sh)"/>
+  <text x="778" y="152" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="13" font-weight="700" fill="#edf2f7">Persistence</text>
+  <text x="778" y="184" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="11" fill="#cbd5e0">data/store.json</text>
+  <text x="778" y="210" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="10" fill="#a0aec0">atomic replace / env path</text>
+
+  <path d="M 272 148 L 356 148" stroke="#2f855a" stroke-width="2" fill="none" marker-end="url(#mh)"/>
+  <path d="M 620 261 L 620 190 L 660 190" stroke="#4a5568" stroke-width="2" fill="none" marker-end="url(#mh2)"/>
+  <path d="M 480 261 L 480 294 L 620 294 L 620 261" stroke="#4a5568" stroke-width="2" fill="none" marker-end="url(#mh2)"/>
+  <text x="296" y="138" font-family="Segoe UI,Arial,sans-serif" font-size="9" fill="#4a5568">HTTP</text>
+  <text x="460" y="318" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="10" fill="#718096">Module paths correspond to MVP traceability Section 1.4</text>
+</svg>

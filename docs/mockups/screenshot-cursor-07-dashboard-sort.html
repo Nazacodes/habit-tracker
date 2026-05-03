@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cursor — roster ordering</title>
+    <link rel="stylesheet" href="chat-skins.css" />
+  </head>
+  <body class="skin-cursor">
+    <div class="window-chrome">
+      <div class="titlebar">
+        <div class="titlebar-brand"><span class="logo-dot"></span> Cursor · dashboard.py</div>
+        <div class="titlebar-meta">?sort=recent</div>
+      </div>
+      <div class="chat-body">
+        <div class="msg msg-user">
+          <div class="msg-label">You</div>
+          Need sort_modes name|streak|best|recent with stable alphabetical tiebreaker. Recent = max(last completion epoch) descending; absent completions fallback date.min sentinel so empty habits sink predictably — confirm tie-break snippet.
+        </div>
+        <div class="msg msg-ai">
+          <div class="msg-label">Agent</div>
+<pre>elif mode == "recent":
+    clone.sort(key=lambda r: (
+        -(habit_last_completed(r["habit"]).toordinal()),
+        r["habit"].name.casefold(),
+    ))</pre>
+          <div class="hint">FastAPI query param unaffected — pure server sort before template.</div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

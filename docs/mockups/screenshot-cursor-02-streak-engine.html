@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cursor — streak logic</title>
+    <link rel="stylesheet" href="chat-skins.css" />
+  </head>
+  <body class="skin-cursor">
+    <div class="window-chrome">
+      <div class="titlebar">
+        <div class="titlebar-brand"><span class="logo-dot"></span> Cursor · habit_tracker/streak.py</div>
+        <div class="titlebar-meta">CoT • tests</div>
+      </div>
+      <div class="chat-body">
+        <div class="msg msg-user">
+          <div class="msg-label">You</div>
+          No code yet. Step-by-step prose for current_streak(completions,set[date], today). Explicit rule: streak alive only if today OR yesterday logged, then march backward day-by-day counting consecutive memberships.
+        </div>
+        <div class="msg msg-ai">
+          <div class="msg-label">Agent</div>
+          <p>If today ∈ S → anchor=today. Elif yesterday ∈ S → anchor=yesterday. Else return 0. Initialise k=0, d=anchor; while d∈S: k++, d-=1 day. Duplicate dates treated as singleton via set abstraction upstream.</p>
+        </div>
+        <div class="msg msg-user">
+          <div class="msg-label">You</div>
+          Now propose pytest names only (five) reflecting boundary behaviour — no assertions body.
+        </div>
+        <div class="msg msg-ai">
+          <div class="msg-label">Agent</div>
+<pre>test_anchor_requires_today_or_yesterday
+test_counts_five_backward_days
+test_zero_when_only_two_days_gap
+test_duplicate_dates_idempotent_current
+test_best_streak_handles_two_disjoint_runs</pre>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

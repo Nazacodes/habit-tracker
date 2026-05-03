@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Copilot — test scaffolding</title>
+    <link rel="stylesheet" href="chat-skins.css" />
+  </head>
+  <body class="skin-copilot">
+    <div class="copilot-shell">
+      <div class="copilot-header">
+        <div class="copilot-brand">
+          COPILOT <span class="hub">›</span> tests/test_backup_restore.py
+        </div>
+        <div style="color: #858585">Python • pytest</div>
+      </div>
+      <div class="copilot-chat">
+        <div class="cp-msg cp-user">
+          Fill missing assertions: after restore empties habits, reloading original bytes revive habit Alpha name field — use json.loads(store_path.read_text()).</div>
+        <div class="cp-msg cp-ai">
+          Suggestion accepted ✓ Inserted asserts:
+<pre>restored = json.loads(Path(store_path).read_text(encoding="utf-8"))
+assert restored["habits"][0]["name"] == "Alpha"</pre>
+          Follow-up Tip: gzip fixture if binary compare needed later (deferred).</div>
+      </div>
+      <div class="copilot-composer-placeholder">
+        Explain selected code • Generate tests • Fix
+      </div>
+    </div>
+  </body>
+</html>

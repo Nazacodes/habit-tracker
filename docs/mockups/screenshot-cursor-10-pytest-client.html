@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cursor — integration pytest</title>
+    <link rel="stylesheet" href="chat-skins.css" />
+  </head>
+  <body class="skin-cursor">
+    <div class="window-chrome">
+      <div class="titlebar">
+        <div class="titlebar-brand"><span class="logo-dot"></span> Cursor · tests/conftest.py</div>
+        <div class="titlebar-meta">HABIT_TODAY pin</div>
+      </div>
+      <div class="chat-body">
+        <div class="msg msg-user">
+          <div class="msg-label">You</div>
+          Document why isolated_app_env fixture sets both HABIT_STORE_PATH tempfile + HABIT_TODAY=2026-05-02 before yielding Flask test client — concurrency with developer manual browser testing concerns?
+        </div>
+        <div class="msg msg-ai">
+          <div class="msg-label">Agent</div>
+          <p>Stores never collide across pytest runs + streak assertions deterministic irrespective of workstation clock drift. Developers unset env when launching real Flask server for exploratory QA.</p>
+        </div>
+        <div class="msg msg-user">
+          <div class="msg-label">You</div>
+          Draft single integration asserting POST /habits persists uuid then GET echoes name — omit imports just narrative ordering.
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

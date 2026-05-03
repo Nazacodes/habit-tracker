@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cursor — heatmap grid</title>
+    <link rel="stylesheet" href="chat-skins.css" />
+  </head>
+  <body class="skin-cursor">
+    <div class="window-chrome">
+      <div class="titlebar">
+        <div class="titlebar-brand"><span class="logo-dot"></span> Cursor · heatmap.py</div>
+        <div class="titlebar-meta">deterministic grid</div>
+      </div>
+      <div class="chat-body">
+        <div class="msg msg-user">
+          <div class="msg-label">You</div>
+          build_heatmap_columns must output 7 rows (Mon→Sun top) × num_weeks columns anchored on ISO Monday window containing today. Future days (>today) get state "future". Provide complexity note O(7*w).
+        </div>
+        <div class="msg msg-ai">
+          <div class="msg-label">Agent</div>
+<pre>newest_mon = today - timedelta(days=today.weekday())
+oldest = newest_mon - timedelta(weeks=num_weeks-1)</pre>
+          <p>Double nested loops row 0..6, inner week offsets; classify membership vs comps set; late dates flagged future for UI halo.</p>
+        </div>
+        <div class="msg msg-user">
+          <div class="msg-label">You</div>
+          Pytest expectation: saturday anchor cell in final column equals done vs empty sanity when completions empty vs includes today row—list two asserts textually.
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cursor — table-driven tests</title>
+    <link rel="stylesheet" href="chat-skins.css" />
+  </head>
+  <body class="skin-cursor">
+    <div class="window-chrome">
+      <div class="titlebar">
+        <div class="titlebar-brand"><span class="logo-dot"></span> Cursor · tests/test_streak.py</div>
+        <div class="titlebar-meta">parametrize</div>
+      </div>
+      <div class="chat-body">
+        <div class="msg msg-user">
+          <div class="msg-label">You</div>
+          Collapse repetitive current_streak cases into @pytest.mark.parametrize with named ids — easier diff in CI logs.
+        </div>
+        <div class="msg msg-ai">
+          <div class="msg-label">Agent</div>
+<pre>@pytest.mark.parametrize(
+    "comps, today, expect",
+    [
+        ({"2026-05-02", "2026-05-01"}, date(2026, 5, 2), 2),
+        (set(), date(2026, 5, 2), 0),
+    ],
+    ids=("two-day-run", "empty"),
+)
+def test_current_streak_param(comps, today, expect):
+    assert current_streak(comps, today) == expect</pre>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

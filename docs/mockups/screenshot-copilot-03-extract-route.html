@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Copilot — extract handler</title>
+    <link rel="stylesheet" href="chat-skins.css" />
+  </head>
+  <body class="skin-copilot">
+    <div class="copilot-shell">
+      <div class="copilot-header">
+        <div class="copilot-brand"><span class="hub">GitHub Copilot</span> · Chat · aisdlc</div>
+        <span style="color: #858585">Python</span>
+      </div>
+      <div class="copilot-chat">
+        <div class="cp-msg cp-user">@workspace Refactor: move backup JSON parse + schema check from the route into habit_tracker/backup_io.py with a single `parse_store_upload(file_stream) -> StoreData | None`</div>
+        <div class="cp-msg cp-ai">
+          Suggested structure: read bytes → utf-8 decode → json.loads → validate keys `{"habits": [...]}` … return None on failure with reason for flash.
+          <div class="cp-ref">Referenced: app.py L318–L360</div>
+        </div>
+      </div>
+      <div class="copilot-composer-placeholder">Ask Copilot or type / for commands</div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}{{ title }} · Habit Studio{% endblock %}
+{% block content %}
+<section class="panel narrow">
+  <h2>{{ title }}</h2>
+  {% if habit %}
+  <form method="post" action="{{ url_for('habit_update', habit_id=habit.id) }}">
+  {% else %}
+  <form method="post" action="{{ url_for('habit_create') }}">
+  {% endif %}
+    {% include "_csrf_field.html" %}
+    <label>
+      Name
+      <input name="name" required maxlength="120" value="{{ habit.name if habit else '' }}" />
+    </label>
+    <label>
+      Description
+      <textarea name="description" rows="3" maxlength="2000">{{ habit.description if habit else '' }}</textarea>
+    </label>
+    <div class="form-actions">
+      {% if habit %}
+      <button class="btn primary" type="submit">Save</button>
+      <a class="btn ghost" href="{{ url_for('habit_detail', habit_id=habit.id) }}">Cancel</a>
+      {% else %}
+      <button class="btn primary" type="submit">Create</button>
+      <a class="btn ghost" href="{{ url_for('index') }}">Cancel</a>
+      {% endif %}
+    </div>
+  </form>
+</section>
+{% endblock %}

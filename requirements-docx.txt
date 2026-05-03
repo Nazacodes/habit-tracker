@@ -1,0 +1,6 @@
+# Optional: export Markdown reports under docs/ to Word (.docx)
+#   pip install -r requirements-docx.txt
+#   python scripts/export_reports_to_docx.py               # separate files
+#   python scripts/build_final_submission_docx.py          # one PDF-ready master
+pypandoc>=1.11,<2
+pillow>=10,<12

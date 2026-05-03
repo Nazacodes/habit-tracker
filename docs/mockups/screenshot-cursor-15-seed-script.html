@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cursor — seed_fake_data.py</title>
+    <link rel="stylesheet" href="chat-skins.css" />
+  </head>
+  <body class="skin-cursor">
+    <div class="window-chrome">
+      <div class="titlebar">
+        <div class="titlebar-brand"><span class="logo-dot"></span> Cursor · scripts/seed_fake_data.py</div>
+        <div class="titlebar-meta">HABIT_TODAY</div>
+      </div>
+      <div class="chat-body">
+        <div class="msg msg-user">
+          <div class="msg-label">You</div>
+          `--apply` should copy generated JSON into live store path (with prompt), default output `data/seed_demo.json`. Reference day from getenv HABIT_TODAY else datetime.date.today().
+        </div>
+        <div class="msg msg-ai">
+          <div class="msg-label">Agent</div>
+<pre>def ref_today() -> date:
+    raw = os.environ.get("HABIT_TODAY", "").strip()
+    if raw:
+        return date.fromisoformat(raw)
+    return date.today()</pre>
+          <div class="hint">README warns screenshot drift if clock changes—pin the env for marking.</div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

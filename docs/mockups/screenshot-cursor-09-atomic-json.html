@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cursor — atomic save</title>
+    <link rel="stylesheet" href="chat-skins.css" />
+  </head>
+  <body class="skin-cursor">
+    <div class="window-chrome">
+      <div class="titlebar">
+        <div class="titlebar-brand"><span class="logo-dot"></span> Cursor · storage.py</div>
+        <div class="titlebar-meta">mkstemp • os.replace</div>
+      </div>
+      <div class="chat-body">
+        <div class="msg msg-user">
+          <div class="msg-label">You</div>
+          Explain why naive open(path,"w") on Windows risks torn JSON if process killed mid-write. Then show pattern tmp in same directory + os.replace citing exception cleanup for temp file unlink.
+        </div>
+        <div class="msg msg-ai">
+          <div class="msg-label">Agent</div>
+          <p>Torn write leaves partial JSON → next load JSONDecodeError. Replace is atomic on same volume; temp prefix keeps readers from observing half file.</p>
+<pre>fd, tmp = tempfile.mkstemp(..., dir=path.parent)
+try:
+    ...
+    os.replace(tmp, path)
+finally:
+    try: os.unlink(tmp)
+    except OSError: pass</pre>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
