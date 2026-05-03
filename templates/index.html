@@ -4,14 +4,14 @@
 
 <section class="hero-grid">
   <article class="panel hero-main">
-    <p class="eyebrow">Reference day</p>
+    <p class="eyebrow">Today</p>
     <p class="display-date">{{ today.strftime("%a %d %b %Y") }}</p>
     <p class="lede muted">
-      Today’s orbit: mark habits fast from the Focus rail, drill into streak logic + heatmaps via each row.
-      Sorting persists in the URL for reproducible demos.
+      See what is still open, log completions from Today’s focus, then open any habit for streaks, the week-at-a-glance chart, and your consistency map.
+      Sort stays in the address bar so you can bookmark a view.
     </p>
     <div class="hero-actions">
-      <a class="btn primary glow" href="{{ url_for('habit_new') }}">Create habit</a>
+      <a class="btn primary glow" href="{{ url_for('habit_new') }}">Add habit</a>
       <a class="btn ghost" href="{{ url_for('backup_page') }}">Backup / restore</a>
     </div>
   </article>
@@ -21,7 +21,7 @@
       <p class="kpi-value">{{ today_done_ct }}<span class="kpi-suffix">/{{ habits_total }}</span></p>
       {% if completion_rate is not none %}
       <div class="kpi-meter" aria-hidden="true"><span style="width: {{ completion_rate }}%"></span></div>
-      <p class="kpi-hint muted small">{{ completion_rate }}% lock‑in vs total habits</p>
+      <p class="kpi-hint muted small">{{ completion_rate }}% of habits completed today</p>
       {% else %}
       <p class="kpi-hint muted small">Add habits to measure daily completion coverage.</p>
       {% endif %}
@@ -39,7 +39,7 @@
   <header class="section-head">
     <div>
       <h2 id="today-focus-heading">Today’s focus</h2>
-      <p class="muted small">Outstanding habits · one tap “Done” with CSRF‑bound POST.</p>
+      <p class="muted small">Still open today—one tap logs them as done.</p>
     </div>
   </header>
   {% if not pending_focus %}
@@ -53,7 +53,7 @@
     <li class="focus-card">
       <div class="focus-meta">
         <a class="focus-title" href="{{ url_for('habit_detail', habit_id=row.habit.id) }}">{{ row.habit.name }}</a>
-        <p class="muted small focus-sub">Cur {{ row.current }} · Best {{ row.best }}</p>
+        <p class="muted small focus-sub">Streak {{ row.current }} · Best {{ row.best }}</p>
       </div>
       <form method="post" action="{{ url_for('habit_mark_today_quick', habit_id=row.habit.id) }}" class="inline-stack">
         {% include "_csrf_field.html" %}
@@ -71,7 +71,7 @@
   <header class="section-head split">
     <div>
       <h2>Roster overview</h2>
-      <p class="muted small">Stable sort modes for demo narrative + analytics comparisons.</p>
+      <p class="muted small">Choose how you want the list ordered.</p>
     </div>
     <nav class="sort-pills" aria-label="Sort habits">
       <a class="pill {{ 'is-active' if sort_mode=='name' else '' }}" href="{{ url_for('index', sort='name') }}">Name</a>
@@ -83,8 +83,8 @@
 
   {% if not rows %}
   <div class="empty-roster">
-    <p><strong>This canvas is pristine.</strong> Spin up your flagship habit pair (sleep + hydration, study block, mobility…)</p>
-    <a class="btn primary" href="{{ url_for('habit_new') }}">Start first habit</a>
+    <p><strong>No habits yet.</strong> Add the first one you want to keep in sight—sleep, movement, study blocks, hydration, anything that matters this season.</p>
+    <a class="btn primary" href="{{ url_for('habit_new') }}">Add a habit</a>
   </div>
   {% else %}
   <div class="table-wrap">

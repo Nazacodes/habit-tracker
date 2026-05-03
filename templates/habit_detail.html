@@ -7,7 +7,7 @@
 <section class="panel detail-hero card-elev">
   <div class="toolbar">
     <div>
-      <p class="eyebrow">Habit detail</p>
+      <p class="eyebrow">Overview</p>
       <h2>{{ habit.name }}</h2>
     </div>
     <div class="toolbar-actions">
@@ -31,12 +31,12 @@
       <span class="stat-num">{{ best }}</span>
     </div>
     <div class="stat-chip">
-      <span class="stat-label">This ISO week</span>
+      <span class="stat-label">This week</span>
       <span class="stat-num">{{ week_total }}</span>
       <span class="stat-note">days</span>
     </div>
   </div>
-  <p class="muted small">Calendar window: <strong>{{ week_heading }}</strong></p>
+  <p class="muted small">Week shown (Mon–Sun): <strong>{{ week_heading }}</strong></p>
 </section>
 
 <section class="panel stack-md">
@@ -58,25 +58,33 @@
     <button class="btn ghost" type="submit">Clear date</button>
   </form>
   <p class="muted small">
-    Streak rule: streak <em>counts</em> only if today or yesterday is logged, then walks consecutive days backward (see tests in <code>test_streak.py</code>).
+    <strong>How streaks work:</strong> the count stays alive if you logged <em>today</em> or <em>yesterday</em>, then grows backward through consecutive days you completed. Miss a day in that chain and the streak resets.
   </p>
 </section>
 
 <section class="panel card-elev">
-  <h3 id="weekly-heading">Weekly analytics (this ISO week)</h3>
+  <h3 id="weekly-heading">This week by weekday</h3>
   <figure class="chart-figure">
     <figcaption class="sr-only">
       {{ week_heading }} · completion counts Monday through Sunday.
     </figcaption>
     <div class="chart" role="img" aria-labelledby="weekly-heading">
-      {% for label, count in chart %}
+      {% for row in chart_rows %}
       <div class="bar-wrap">
-        <div class="bar" style="height: {{ (count / chart_max * 100) | round(2) }}%"></div>
-        <span class="bar-count">{{ count }}</span>
-        <span class="bar-label">{{ label }}</span>
+        <div class="bar-track" aria-hidden="true">
+          <div
+            class="bar{% if not row.filled %} bar-empty{% endif %}"
+            style="height: {{ row.height_px }}px"
+          ></div>
+        </div>
+        <span class="bar-count">{{ row.count }}</span>
+        <span class="bar-label">{{ row.label }}</span>
       </div>
       {% endfor %}
     </div>
+    <p class="muted small chart-hint">
+      Taller green bar = logged that weekday. Short grey bar = none. Numbers under each column match the bar.
+    </p>
   </figure>
 </section>
 
@@ -84,7 +92,7 @@
   <header class="section-head">
     <div>
       <h3 id="heatmap-title">Consistency map</h3>
-      <p class="muted small">GitHub-style grid for the last {{ ncol }} ISO weeks (Mon→Sun rows). Colours + patterns avoid sole reliance on hue.</p>
+      <p class="muted small">Last {{ ncol }} weeks as a calendar grid (Mon–Sun rows). Colour and pattern work together so you can read it in greyscale too.</p>
     </div>
   </header>
   <div class="heat-root" style="--heat-cols: {{ ncol }};">

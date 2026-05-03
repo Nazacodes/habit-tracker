@@ -25,11 +25,11 @@ python -m habit_tracker
 
 Open **http://127.0.0.1:5000**.
 
-## Demo data
+## Sample data
 
-Bundled sample data: **`data/seed_demo.json`**. To load it as your live store, **stop the app**, copy that file over **`data/store.json`**, then start again.
+Bundled dataset: **`data/seed_demo.json`**. To load it as your live store, **stop the app**, copy that file over **`data/store.json`**, then start again.
 
-Optional: set **`HABIT_TODAY=YYYY-MM-DD`** (environment variable) so “today” in tests or screenshots is fixed.
+Optional: set **`HABIT_TODAY=YYYY-MM-DD`** so the app treats a fixed calendar day as “today” (useful for screenshots or automated checks).
 
 ## Tests
 

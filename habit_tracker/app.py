@@ -8,7 +8,7 @@ from pathlib import Path
 
 from flask import Flask, flash, redirect, render_template, request, send_file, url_for
 
-from habit_tracker.analytics import weekly_counts
+from habit_tracker.analytics import weekly_chart_bars, weekly_counts
 from habit_tracker.dashboard import gather_today_focus, portfolio_best, sort_rows
 from habit_tracker.models import Habit, StoreData
 from habit_tracker.security import csrf_token, validate_csrf
@@ -87,7 +87,7 @@ def not_found(_exc):
 
 @app.get("/healthz")
 def healthz():
-    """Lightweight liveness probe for demos / CI smoke (no secrets)."""
+    """JSON liveness check for monitoring and automated tests (no secrets)."""
     return {"status": "ok", "storage": _store_path().name}
 
 
@@ -245,6 +245,7 @@ def habit_detail(habit_id: str):
     chart_max = max((c for _, c in chart), default=0)
     if chart_max < 1:
         chart_max = 1
+    chart_rows = weekly_chart_bars(chart, chart_max)
     heatmap_grid, heat_weeks, _hm_lo, _hm_hi = build_heatmap_columns(cset, today, num_weeks=14)
     heat_ticks = month_tick_labels(heat_weeks)
     return render_template(
@@ -257,6 +258,7 @@ def habit_detail(habit_id: str):
         week_total=sum(c for _, c in chart),
         chart=chart,
         chart_max=chart_max,
+        chart_rows=chart_rows,
         heatmap_grid=heatmap_grid,
         heat_ticks=heat_ticks,
     )

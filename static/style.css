@@ -692,13 +692,41 @@ textarea {
   flex-direction: column;
   align-items: center;
   gap: 0.25rem;
+  min-width: 0;
+}
+
+/* Fixed-height track so bar pixel heights are comparable (percent heights broke inside grid). */
+.bar-track {
+  width: 100%;
+  height: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: stretch;
+  border-radius: 8px;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  padding: 4px;
+  box-sizing: border-box;
 }
 
 .bar {
   width: 100%;
-  min-height: 4px;
+  min-height: 0;
+  flex: 0 0 auto;
   background: linear-gradient(180deg, var(--accent), var(--accent-strong));
   border-radius: 6px 6px 2px 2px;
+  transition: height 0.15s ease-out;
+}
+
+.bar-empty {
+  background: var(--border);
+  opacity: 0.55;
+}
+
+.chart-hint {
+  margin-top: 0.5rem;
+  max-width: 42rem;
 }
 
 .bar-count {

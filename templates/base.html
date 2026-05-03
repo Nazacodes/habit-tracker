@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="dark light" />
-    <title>{% block title %}Habit Tracker Pro{% endblock %}</title>
+    <title>{% block title %}Habit Studio{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
     <script defer src="{{ url_for('static', filename='theme.js') }}"></script>
   </head>
@@ -15,11 +15,11 @@
       <div class="wrap header-inner">
         <div class="brand-cluster">
           <h1><a href="{{ url_for('index') }}">Habit&nbsp;Studio</a></h1>
-          <p class="tagline">Momentum you can audit · COMP8066 Option&nbsp;A MVP</p>
+          <p class="tagline">Your habits, one steady rhythm—on your device, under your control.</p>
         </div>
         <nav class="top-actions" aria-label="Primary navigation">
           <a class="nav-link" href="{{ url_for('index') }}">Dashboard</a>
-          <a class="nav-link" href="{{ url_for('habit_new') }}">New habit</a>
+          <a class="nav-link" href="{{ url_for('habit_new') }}">Add habit</a>
           <a class="nav-link" href="{{ url_for('backup_page') }}">Backup</a>
           <button
             id="theme-toggle"
@@ -50,7 +50,7 @@
 
     <footer class="site-footer">
       <div class="wrap footer-inner">
-        <small>JSON storage · CSRF‑protected mutations · WCAG‑aligned palette guidance in docs</small>
+        <small>Private by default · Data stays on this machine · Secure forms</small>
       </div>
     </footer>
   </body>
