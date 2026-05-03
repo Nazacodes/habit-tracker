@@ -32,3 +32,6 @@ requirements-docx.txt
 
 # Microsoft Word lock files (never commit)
 **/~$*.docx
+
+# Local toolchain installers (do not publish)
+*.msi
