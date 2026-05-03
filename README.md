@@ -1,6 +1,8 @@
-# Habit Studio — Habit Tracker Pro (COMP8066 Project 2)
+# Habit Studio
 
-Local web habit tracker (**“Habit Studio”** in the UI) delivering **CRUD**, **daily completion**, a **documented streak engine**, **weekly analytics**, and new **product-grade MVP affordances** below. All persistence is a **JSON file** on disk — **no external APIs** (no CDN fonts, no hosted analytics).
+Local web habit tracker: **CRUD habits**, **daily completions**, **streak engine**, **weekly analytics**, **heatmap**, **backup/restore**, light/dark theme. Data is a **JSON file** on disk. **No external APIs** (no CDN fonts or hosted chart services).
+
+**Repository:** https://github.com/Nazacodes/habit-tracker
 
 ## Requirements
 
@@ -21,51 +23,13 @@ pip install -r requirements.txt
 python -m habit_tracker
 ```
 
-Open **http://127.0.0.1:5000** in your browser.
+Open **http://127.0.0.1:5000**.
 
-### Fake/demo data *(UI + manual testing)*
+## Demo data
 
-Prebuilt file: **`data/seed_demo.json`** — six habits with ~90 days of mixed completions (streaks, heatmap texture, Focus rail quirks).
+Bundled sample data: **`data/seed_demo.json`**. To load it as your live store, **stop the app**, copy that file over **`data/store.json`**, then start again.
 
-Regenerate / apply:
-
-```powershell
-# Regenerate demo file (reference day = real clock, or set HABIT_TODAY below)
-python scripts/seed_fake_data.py
-
-# Copy demo data into your live store (overwrite)
-python scripts/seed_fake_data.py --apply
-
-# Match coursework screenshots with a fixed clock
-$env:HABIT_TODAY="2026-05-02"
-python scripts/seed_fake_data.py --apply
-```
-
-### Product MVP highlights (beyond baseline Option A)
-
-- **Dashboard KPIs:** today completion coverage + portfolio “best streak” benchmark.
-- **Today’s focus rail:** one-click “Done today” (CSRF-backed) for habits missing the reference day.
-- **Roster sorting:** name / current streak / best streak / recent activity (bookmarkable query string for demos).
-- **Consistency heatmap:** 14-week GitHub-style grid per habit (`habit_tracker/heatmap.py`).
-- **Backup / restore:** download JSON snapshot + guarded upload replace (`/backup`).
-- **Theme system:** light/dark with `prefers-color-scheme` default + persisted toggle (`localStorage`, `static/theme.js`).
-- **Design narrative:** WCAG-aligned green tokens documented in [`docs/UI_Design_Rationale.md`](docs/UI_Design_Rationale.md).
-
-### Quality bar (“exceptional-tier” checkpoints)
-
-- **CSRF synchroniser tokens** on every state-changing POST (`habit_tracker/security.py`).
-- **Strict server-side validation** (`habit_tracker/validation.py`) + deterministic JSON normalization on save.
-- **Accessibility polish:** skip link, `aria-live` flashes, focus-visible outlines, semantic tables/figures, patterned heatmap empties (not hue-only cues).
-- **CI:** GitHub Actions runs **`pytest`** on Python 3.11 + 3.12 ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)).
-- **`GET /healthz`** JSON smoke probe for narration during video recordings.
-
-### Optional environment variables
-
-| Variable | Purpose |
-|----------|---------|
-| `HABIT_STORE_PATH` | Absolute path to the JSON store (default: `data/store.json` under the project root). |
-| `HABIT_TODAY` | ISO date (`YYYY-MM-DD`) used as “today” for demos and automated tests (omit for real use). |
-| `FLASK_SECRET_KEY` | Secret for session/flash signing **and** CSRF token storage (defaults to a dev value — change if multiple users share a LAN). |
+Optional: set **`HABIT_TODAY=YYYY-MM-DD`** (environment variable) so “today” in tests or screenshots is fixed.
 
 ## Tests
 
@@ -73,48 +37,25 @@ python scripts/seed_fake_data.py --apply
 pytest -q
 ```
 
-## Project layout
+CI runs the same suite on Python 3.11 and 3.12 (see `.github/workflows/ci.yml`).
 
-- `habit_tracker/` — Flask app, models, JSON storage, streak/analytics/dashboard/heatmap/security helpers
-- `templates/`, `static/` — UI
-- `data/` — default location for `store.json` (created on first save)
-- `tests/` — unit + integration tests
-- `docs/` — SDLC report, prompt log & chat appendix, reflection (Markdown sources + **[`docs/docx/COMP8066_Final_Submission.docx`](docs/docx/COMP8066_Final_Submission.docx)** bundle via [`scripts/build_final_submission_docx.py`](scripts/build_final_submission_docx.py); per-file Word via [`requirements-docx.txt`](requirements-docx.txt))
-- [`docs/Prompt_Chats_Appendix.md`](docs/Prompt_Chats_Appendix.md) — full prompt-engineering transcript blocks
-- [`docs/Submission_Guide.md`](docs/Submission_Guide.md) — PDF/video/zip checklist and PowerShell helper
-- [`docs/diagrams/`](docs/diagrams/) — SVG architecture + sequence figures embedded via SDLC Markdown / Word bundle
-- [`docs/report-figures/`](docs/report-figures/) — Figures 1–5 as HTML (print/snip into PDF)
-- [`docs/mockups/CHAT_MOCKUPS_INDEX.html`](docs/mockups/CHAT_MOCKUPS_INDEX.html) — Cursor / ChatGPT / Copilot–style static “screenshot” pages for the report
+## Layout
 
-## Non-trivial logic (assignment)
+| Path | Role |
+|------|------|
+| `habit_tracker/` | Flask app, models, JSON storage, streak, analytics, heatmap, CSRF helpers |
+| `templates/`, `static/` | UI |
+| `data/` | Default `store.json` location (created on first save) |
+| `tests/` | `pytest` |
 
-The **streak engine** (`habit_tracker/streak.py`) defines how *current streak* is derived from completion dates relative to a reference day, plus **best-ever** streak and **ISO week** helpers used by analytics.
+## Environment
 
-## Publish to GitHub (public repo)
-
-Keep the repo **source-first**: Markdown docs, `habit_tracker/`, `tests/`, `templates/`, `static/`, `scripts/`, `data/seed_demo.json`, CI workflow. Your `.gitignore` already drops **`.venv/`**, **local `data/store.json`**, pytest caches, and **timestamped Word fallbacks** under `docs/docx/`.
-
-1. Install [Git for Windows](https://git-scm.com/download/win) or use **GitHub Desktop**.
-2. On GitHub: **New repository** → choose a name (e.g. `habit-studio`) → **Public** → create **without** README / .gitignore (empty repo avoids merge friction).
-3. Wire `origin` and push (replace `YOUR_USER` and `YOUR_REPO`):
-
-```powershell
-cd c:\Users\rituh\Desktop\aisdlc
-powershell -ExecutionPolicy Bypass -File .\scripts\connect_github_remote.ps1 -GitHubUser YOUR_USER -RepoName YOUR_REPO
-git push -u origin master
-```
-
-If you prefer GitHub’s default branch name `main` instead of `master`:
-
-```powershell
-git branch -M main
-git push -u origin main
-```
-
-If this folder was not a git repo yet: `git init`, then `git add .`, `git commit -m "..."`, then run the `connect_github_remote.ps1` line above.
-
-Do **not** commit Moodle **PDF**, personal **video**, or **graded zip** unless you intend to; markers care about your submission copy, not the public repo. After the repo exists, set the real URL in `docs/Mini_SDLC_Report.md` (repository line) and rebuild the Word/PDF if needed.
+| Variable | Purpose |
+|----------|---------|
+| `HABIT_STORE_PATH` | Path to JSON store (default: `data/store.json` under repo root) |
+| `HABIT_TODAY` | ISO date used as “today” for demos/tests (omit in normal use) |
+| `FLASK_SECRET_KEY` | Session / CSRF signing (set something strong if others can reach your LAN) |
 
 ## Licence
 
-Educational submission — check with your institution for reuse.
+Educational project; check your institution before reusing.

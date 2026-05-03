@@ -24,3 +24,11 @@ docs/docx/*-generated.docx
 # One-off git helper logs (local only)
 git_setup_result.txt
 git-init-log.txt
+
+# Coursework / submission artefacts stay local only (public repo = app source)
+/docs/
+/scripts/
+requirements-docx.txt
+
+# Microsoft Word lock files (never commit)
+**/~$*.docx
